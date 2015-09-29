@@ -31,11 +31,13 @@ class TestWaypointRest(BaseTestCase):
         self.assertEqual(body.get('document_id'), self.waypoint.document_id)
         self.assertEqual(
             body.get('waypoint_type'), self.waypoint.waypoint_type)
+        self.assertIsNotNone(body.get('version'))
 
         locales = body.get('locales')
         self.assertEqual(len(locales), 2)
         locale_en = locales[0]
         self.assertFalse('id' in locale_en)
+        self.assertIsNotNone(locale_en.get('version'))
         self.assertEqual(locale_en.get('culture'), self.locale_en.culture)
         self.assertEqual(locale_en.get('title'), self.locale_en.title)
 
@@ -101,10 +103,12 @@ class TestWaypointRest(BaseTestCase):
 
         body = json.loads(response.body)
         document_id = body.get('document_id')
+        self.assertIsNotNone(body.get('version'))
         self.assertIsNotNone(document_id)
 
         # check that the version was created correctly
         waypoint = self.session.query(Waypoint).get(document_id)
+        waypoint_locale_en = waypoint.locales[0]
         versions = waypoint.versions
         self.assertEqual(len(versions), 1)
         version = versions[0]
@@ -120,9 +124,11 @@ class TestWaypointRest(BaseTestCase):
         self.assertEqual(archive_waypoint.document_id, document_id)
         self.assertEqual(archive_waypoint.waypoint_type, 'summit')
         self.assertEqual(archive_waypoint.elevation, 3779)
+        self.assertEqual(archive_waypoint.version, waypoint.version)
 
         archive_locale = version.document_locales_archive
         self.assertEqual(archive_locale.document_id, document_id)
+        self.assertEqual(archive_locale.version, waypoint_locale_en.version)
         self.assertEqual(archive_locale.culture, 'en')
         self.assertEqual(archive_locale.title, 'Mont Pourri')
         self.assertEqual(archive_locale.pedestrian_access, 'y')
