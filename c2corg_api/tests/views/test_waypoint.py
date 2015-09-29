@@ -99,10 +99,8 @@ class TestWaypointRest(BaseTestCase):
 
         self.assertEqual(version.culture, 'en')
         self.assertEqual(version.version, 1)
-        self.assertEqual(version.nature, 'ft')
 
         meta_data = version.history_metadata
-        self.assertEqual(meta_data.is_minor, False)
         self.assertEqual(meta_data.comment, 'creation')
         self.assertIsNotNone(meta_data.written_at)
 
