@@ -33,11 +33,23 @@ class TestWaypointRest(BaseTestCase):
             body.get('waypoint_type'), self.waypoint.waypoint_type)
 
         locales = body.get('locales')
-        self.assertEqual(len(locales), 1)
+        self.assertEqual(len(locales), 2)
         locale_en = locales[0]
         self.assertFalse('id' in locale_en)
         self.assertEqual(locale_en.get('culture'), self.locale_en.culture)
         self.assertEqual(locale_en.get('title'), self.locale_en.title)
+
+    def test_get_lang(self):
+        response = self.app.get(
+            '/waypoints/' + str(self.waypoint.document_id) + '?l=en')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content_type, 'application/json')
+
+        body = json.loads(response.body)
+        locales = body.get('locales')
+        self.assertEqual(len(locales), 1)
+        locale_en = locales[0]
+        self.assertEqual(locale_en.get('culture'), self.locale_en.culture)
 
     def test_post_error(self):
         body = {}
@@ -123,7 +135,12 @@ class TestWaypointRest(BaseTestCase):
             culture='en', title='Mont Granier', description='...',
             pedestrian_access='yep')
 
+        self.locale_fr = WaypointLocale(
+            culture='fr', title='Mont Granier', description='...',
+            pedestrian_access='ouai')
+
         self.waypoint.locales.append(self.locale_en)
+        self.waypoint.locales.append(self.locale_fr)
 
         self.session.add(self.waypoint)
         self.session.flush()
