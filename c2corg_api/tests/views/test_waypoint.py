@@ -164,15 +164,15 @@ class TestWaypointRest(BaseTestCase):
             'waypoint_type': 'summit',
             'elevation': 1234,
             'locales': [
-                {'culture': 'en', 'title': 'Mont Granier', 'description': '...',
-                 'pedestrian_access': 'n'}
+                {'culture': 'en', 'title': 'Mont Granier',
+                 'description': '...', 'pedestrian_access': 'n'}
             ]
         }
         response = self.app.put(
             '/waypoints/' + '-9999' + '?l=en',
             params=json.dumps(body),
             content_type='application/json',
-             expect_errors=True)
+            expect_errors=True)
         self.assertEqual(response.status_code, 404)
 
     def test_put_wrong_document_version(self):
@@ -182,15 +182,15 @@ class TestWaypointRest(BaseTestCase):
             'waypoint_type': 'summit',
             'elevation': 1234,
             'locales': [
-                {'culture': 'en', 'title': 'Mont Granier', 'description': '...',
-                 'pedestrian_access': 'n'}
+                {'culture': 'en', 'title': 'Mont Granier',
+                 'description': '...', 'pedestrian_access': 'n'}
             ]
         }
         response = self.app.put(
             '/waypoints/' + str(self.waypoint.document_id),
             params=json.dumps(body),
             content_type='application/json',
-             expect_errors=True)
+            expect_errors=True)
         self.assertEqual(response.status_code, 409)
 
     def test_put_wrong_locale_version(self):
@@ -200,15 +200,16 @@ class TestWaypointRest(BaseTestCase):
             'waypoint_type': 'summit',
             'elevation': 1234,
             'locales': [
-                {'culture': 'en', 'title': 'Mont Granier', 'description': '...',
-                 'pedestrian_access': 'n', 'version': 'some-old-version'}
+                {'culture': 'en', 'title': 'Mont Granier',
+                 'description': '...', 'pedestrian_access': 'n',
+                 'version': 'some-old-version'}
             ]
         }
         response = self.app.put(
             '/waypoints/' + str(self.waypoint.document_id),
             params=json.dumps(body),
             content_type='application/json',
-             expect_errors=True)
+            expect_errors=True)
         self.assertEqual(response.status_code, 409)
 
     def test_put_success(self):
@@ -287,7 +288,6 @@ class TestWaypointRest(BaseTestCase):
         self.assertEqual(archive_locale.culture, 'fr')
         self.assertEqual(archive_locale.title, 'Mont Granier')
         self.assertEqual(archive_locale.pedestrian_access, 'ouai')
-
 
     def _add_test_data(self):
         self.waypoint = Waypoint(
