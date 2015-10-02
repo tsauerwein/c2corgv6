@@ -98,7 +98,6 @@ class TestRouteRest(BaseTestCase):
         version = versions[0]
 
         self.assertEqual(version.culture, 'en')
-        self.assertEqual(version.version, 1)
 
         meta_data = version.history_metadata
         self.assertEqual(meta_data.comment, 'creation')

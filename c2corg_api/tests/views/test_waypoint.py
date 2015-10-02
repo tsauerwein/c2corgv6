@@ -140,7 +140,6 @@ class TestWaypointRest(BaseTestCase):
         version = versions[0]
 
         self.assertEqual(version.culture, 'en')
-        self.assertEqual(version.version, 1)
 
         meta_data = version.history_metadata
         self.assertEqual(meta_data.comment, 'creation')
@@ -313,7 +312,6 @@ class TestWaypointRest(BaseTestCase):
         version_en = versions[2]
 
         self.assertEqual(version_en.culture, 'en')
-        self.assertEqual(version_en.version, 999)
 
         meta_data_en = version_en.history_metadata
         self.assertEqual(meta_data_en.comment, 'Changing elevation and access')
@@ -337,7 +335,6 @@ class TestWaypointRest(BaseTestCase):
         version_fr = versions[3]
 
         self.assertEqual(version_fr.culture, 'fr')
-        self.assertEqual(version_fr.version, 999)
 
         meta_data_fr = version_fr.history_metadata
         self.assertIs(meta_data_en, meta_data_fr)
@@ -406,7 +403,6 @@ class TestWaypointRest(BaseTestCase):
         version_en = versions[2]
 
         self.assertEqual(version_en.culture, 'en')
-        self.assertEqual(version_en.version, 999)
 
         meta_data_en = version_en.history_metadata
         self.assertEqual(meta_data_en.comment, 'Changing elevation')
@@ -416,7 +412,6 @@ class TestWaypointRest(BaseTestCase):
         version_fr = versions[3]
 
         self.assertEqual(version_fr.culture, 'fr')
-        self.assertEqual(version_fr.version, 999)
 
         meta_data_fr = version_fr.history_metadata
         self.assertIs(meta_data_en, meta_data_fr)
@@ -478,7 +473,6 @@ class TestWaypointRest(BaseTestCase):
         version_en = versions[2]
 
         self.assertEqual(version_en.culture, 'en')
-        self.assertEqual(version_en.version, 999)
 
         meta_data_en = version_en.history_metadata
         self.assertEqual(meta_data_en.comment, 'Changing access')
@@ -488,7 +482,6 @@ class TestWaypointRest(BaseTestCase):
         version_fr = versions[1]
 
         self.assertEqual(version_fr.culture, 'fr')
-        self.assertEqual(version_fr.version, 1)
 
         meta_data_fr = version_fr.history_metadata
         self.assertIsNot(meta_data_en, meta_data_fr)
@@ -549,7 +542,6 @@ class TestWaypointRest(BaseTestCase):
         version_en = versions[0]
 
         self.assertEqual(version_en.culture, 'en')
-        self.assertEqual(version_en.version, 1)
 
         meta_data_en = version_en.history_metadata
 
@@ -557,7 +549,6 @@ class TestWaypointRest(BaseTestCase):
         version_fr = versions[1]
 
         self.assertEqual(version_fr.culture, 'fr')
-        self.assertEqual(version_fr.version, 1)
 
         meta_data_fr = version_fr.history_metadata
         self.assertIs(meta_data_en, meta_data_fr)
@@ -570,7 +561,6 @@ class TestWaypointRest(BaseTestCase):
         version_es = versions[2]
 
         self.assertEqual(version_es.culture, 'es')
-        self.assertEqual(version_es.version, 999)
 
         meta_data_es = version_es.history_metadata
         self.assertIsNot(meta_data_en, meta_data_es)
